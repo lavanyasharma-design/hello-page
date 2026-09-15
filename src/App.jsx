@@ -82,6 +82,7 @@ function App() {
           <span className="cursor-default text-[#551999]">
             just for fun.
           </span>
+          ]
         </p>
       </main>
     </div>
