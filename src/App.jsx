@@ -11,16 +11,16 @@ function App() {
           <img
             src="/my%20photo.jpg"
             alt="Photo of Lavanya smiling indoors"
-            className="h-[96px] w-[96px] flex-none rounded-[8px] object-cover object-bottom sm:h-[140px] sm:w-[140px] sm:rounded-[9px] lg:h-[178px] lg:w-[181px]"
+            className="h-[104px] w-[104px] flex-none rounded-[8px] object-cover object-bottom sm:h-[140px] sm:w-[140px] sm:rounded-[9px] lg:h-[178px] lg:w-[181px]"
           />
           <div className="flex flex-col pt-0 sm:pt-6 lg:pt-[57px]">
-            <h1 className="relative inline-block w-fit whitespace-nowrap text-[30px] font-medium leading-[1.21875] text-[#551999] sm:text-2xl lg:text-[32px] lg:tracking-[0.64px]">
+            <h1 className="relative inline-block w-fit whitespace-nowrap text-[28px] font-medium leading-[1.21875] text-[#551999] sm:text-2xl lg:text-[32px] lg:tracking-[0.64px]">
               Hi, I’m Lavanya
               <img
                 src="/star.svg"
                 alt=""
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-[0.41875em] left-[calc(100%-0.8em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
+                className="pointer-events-none absolute -top-[0.41875em] left-[calc(100%-0.44286em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
               />
             </h1>
             <p className="text-[18px] font-medium leading-[1.2] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
@@ -29,7 +29,7 @@ function App() {
           </div>
         </header>
 
-        <section className="mt-12 flex flex-col gap-[34px] font-medium leading-[normal] text-[#551999] sm:mt-8 sm:gap-8 lg:mt-5 lg:gap-[50px]">
+        <section className="mt-[43px] flex flex-col gap-[34px] font-medium leading-[normal] text-[#551999] sm:mt-8 sm:gap-8 lg:mt-5 lg:gap-[50px]">
           <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[24px]">
             <p>
               I have nearly 2 years of experience. I’ve worked at BharatPe{' '}
