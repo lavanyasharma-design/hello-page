@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Upright", serif;
+}
+
+body {
+  font-family: var(--font-display);
+  line-height: normal;
+}
+
+.swoosh-link:hover .swoosh-img,
+.swoosh-link:focus-visible .swoosh-img {
+  opacity: 1;
+  filter: brightness(0.65) saturate(1.35);
+}
