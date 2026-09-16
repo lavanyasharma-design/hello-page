@@ -20,7 +20,7 @@ function App() {
                 src="/star.svg"
                 alt=""
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-[0.41875em] left-[calc(100%-0.44286em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
+                className="star-motif absolute -top-[0.41875em] left-[calc(100%-0.44286em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
               />
             </h1>
             <p className="text-[18px] font-medium leading-[1.2] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
