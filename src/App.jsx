@@ -77,7 +77,7 @@ function App() {
           </span>{'!'}
         </a>
 
-        <p className="text-[16px] font-medium leading-[normal] text-[#c0169a] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
+        <p className="text-[16px] font-medium leading-[normal] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
           [I kept hitting walls or running out of creative fuel while making
           my portfolio, honestly to the point where in quest to look for the
           reason, I created this page -{' '}
