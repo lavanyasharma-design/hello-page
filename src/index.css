@@ -4,6 +4,16 @@
   --font-display: "Cormorant Garamond", serif;
 }
 
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: #fafeff;
+  color: #551999;
+}
+
 body {
   font-family: var(--font-display);
   line-height: normal;
