@@ -1,5 +1,5 @@
 import { Fragment, cloneElement, isValidElement, useEffect, useRef, useState } from 'react'
-import { isRippleEnabled, registerLetters } from './rippleEngine'
+import { isSplittingEnabled, registerLetters } from './rippleEngine'
 
 function textOf(node) {
   if (node == null || typeof node === 'boolean') return ''
@@ -48,7 +48,7 @@ function splitNode(node, keyPrefix) {
 
 export default function RippleText({ as: Tag = 'p', children, ...rest }) {
   const containerRef = useRef(null)
-  const [enabled] = useState(isRippleEnabled)
+  const [enabled] = useState(isSplittingEnabled)
 
   useEffect(() => {
     if (!enabled || !containerRef.current) return undefined

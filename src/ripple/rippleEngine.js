@@ -2,18 +2,42 @@ const RADIUS = 80
 const MAX_PUSH = 7
 const CELL_SIZE = RADIUS
 
+function prefersReducedMotion() {
+  if (typeof window === 'undefined' || !window.matchMedia) return false
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function hasFinePointerHover() {
+  if (typeof window === 'undefined' || !window.matchMedia) return false
+  return window.matchMedia('(hover: hover) and (pointer: fine)').matches
+}
+
 let enabledCache = null
 
+// Desktop-only gate: fine pointer + hover capability, no reduced motion.
+// Used by effects that are still mouse-move driven (e.g. DitherReveal).
 export function isRippleEnabled() {
   if (enabledCache !== null) return enabledCache
   if (typeof window === 'undefined' || !window.matchMedia) {
     enabledCache = false
     return enabledCache
   }
-  const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  enabledCache = hasFinePointer && !reducedMotion
+  enabledCache = hasFinePointerHover() && !prefersReducedMotion()
   return enabledCache
+}
+
+let splittingCache = null
+
+// Device-agnostic gate: only reduced motion disables it. Drives whether
+// RippleText splits into letters (both desktop hover-ripple and touch drag-ripple).
+export function isSplittingEnabled() {
+  if (splittingCache !== null) return splittingCache
+  if (typeof window === 'undefined' || !window.matchMedia) {
+    splittingCache = false
+    return splittingCache
+  }
+  splittingCache = !prefersReducedMotion()
+  return splittingCache
 }
 
 const letters = new Set()
@@ -46,6 +70,45 @@ function scheduleRebuild() {
   if (rebuildScheduled) return
   rebuildScheduled = true
   requestAnimationFrame(rebuildGrid)
+}
+
+// Scroll shifts every letter by the same delta, so re-derive cached positions
+// with plain arithmetic instead of forcing a getBoundingClientRect() layout
+// read per letter on every scroll frame (that read-during-scroll is what was
+// stalling touch scrolling on mobile).
+let lastScrollX = 0
+let lastScrollY = 0
+let scrollShiftScheduled = false
+let pendingDX = 0
+let pendingDY = 0
+
+function applyScrollShift() {
+  scrollShiftScheduled = false
+  const dx = pendingDX
+  const dy = pendingDY
+  pendingDX = 0
+  pendingDY = 0
+  if (dx === 0 && dy === 0) return
+  grid = new Map()
+  for (const letter of letters) {
+    letter.x -= dx
+    letter.y -= dy
+    const key = cellKeyFor(letter.x, letter.y)
+    if (!grid.has(key)) grid.set(key, [])
+    grid.get(key).push(letter)
+  }
+}
+
+function scheduleScrollShift() {
+  const scrollX = window.scrollX
+  const scrollY = window.scrollY
+  pendingDX += scrollX - lastScrollX
+  pendingDY += scrollY - lastScrollY
+  lastScrollX = scrollX
+  lastScrollY = scrollY
+  if (scrollShiftScheduled) return
+  scrollShiftScheduled = true
+  requestAnimationFrame(applyScrollShift)
 }
 
 function resetLetter(letter) {
@@ -100,21 +163,44 @@ function onMouseLeave() {
   for (const letter of Array.from(active)) resetLetter(letter)
 }
 
+// Touch/pen: pointerdown seeds the ripple at the initial contact point (so a
+// plain tap still produces a pulse), pointermove keeps it following the
+// finger while dragging — same tick()/radius/strength as the desktop path.
+function onTouchPointerActive(e) {
+  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return
+  mouseX = e.clientX
+  mouseY = e.clientY
+  requestTick()
+}
+
+function onTouchPointerEnd(e) {
+  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return
+  onMouseLeave()
+}
+
 function onResize() {
   scheduleRebuild()
 }
 
 function onScroll() {
-  scheduleRebuild()
+  scheduleScrollShift()
 }
 
 function ensureStarted() {
   if (started) return
   started = true
-  window.addEventListener('mousemove', onMouseMove, { passive: true })
-  window.addEventListener('mouseleave', onMouseLeave, { passive: true })
+  lastScrollX = window.scrollX
+  lastScrollY = window.scrollY
+  if (hasFinePointerHover()) {
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
+    window.addEventListener('mouseleave', onMouseLeave, { passive: true })
+  }
   window.addEventListener('resize', onResize, { passive: true })
   window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('pointerdown', onTouchPointerActive, { passive: true })
+  window.addEventListener('pointermove', onTouchPointerActive, { passive: true })
+  window.addEventListener('pointerup', onTouchPointerEnd, { passive: true })
+  window.addEventListener('pointercancel', onTouchPointerEnd, { passive: true })
 }
 
 if (typeof document !== 'undefined' && document.fonts) {
@@ -123,7 +209,7 @@ if (typeof document !== 'undefined' && document.fonts) {
 }
 
 export function registerLetters(els) {
-  if (!isRippleEnabled() || !els || els.length === 0) return () => {}
+  if (!isSplittingEnabled() || !els || els.length === 0) return () => {}
   ensureStarted()
 
   const entries = els.map((el) => ({ el, x: 0, y: 0 }))

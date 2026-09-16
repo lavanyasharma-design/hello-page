@@ -9,6 +9,15 @@ function App() {
         className="pointer-events-none absolute inset-0 opacity-35 sm:opacity-100"
         style={{ backgroundImage: "url('/motif.svg')", backgroundSize: '48px 48px', backgroundRepeat: 'repeat' }}
       />
+      <svg width="0" height="0" aria-hidden="true" className="absolute">
+        <defs>
+          <filter id="star-alpha-boost">
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="1.2" intercept="0" />
+            </feComponentTransfer>
+          </filter>
+        </defs>
+      </svg>
       <main className="relative mx-auto flex w-full max-w-[720px] flex-col px-6 pt-[56px] pb-10 sm:px-8 sm:pt-[100px] sm:pb-14 lg:px-0 lg:pb-[50px]">
         <header className="flex items-center gap-4 sm:items-start sm:gap-6 lg:gap-[22px]">
           <DitherReveal
@@ -27,7 +36,7 @@ function App() {
                 src="/star.svg"
                 alt=""
                 aria-hidden="true"
-                className="star-motif absolute -top-[0.41875em] left-[calc(100%-0.44286em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
+                className="star-motif absolute -top-[0.41875em] left-[calc(100%-0.2em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
               />
             </RippleText>
             <RippleText className="text-[18px] font-medium leading-[1.2] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
@@ -47,7 +56,7 @@ function App() {
               identity resolution to even making invites for my sister’s
               wedding :p{' '}
             </RippleText>
-            <RippleText>It felt like the best re-ignition of my love for design &lt;3</RippleText>
+            <RippleText>It felt like the best re-ignition of my love for design&nbsp;&lt;3</RippleText>
           </div>
           <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
             <RippleText>

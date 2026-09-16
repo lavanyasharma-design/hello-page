@@ -58,6 +58,35 @@ body {
   }
 }
 
+@keyframes star-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-2px) rotate(-3deg) scale(1.03);
+  }
+  50% {
+    transform: translateY(0.5px) rotate(2deg) scale(1);
+  }
+  75% {
+    transform: translateY(2px) rotate(-1deg) scale(0.98);
+  }
+}
+
+@media (pointer: coarse) {
+  .star-motif {
+    animation: star-float 3.6s ease-in-out infinite;
+    filter: url(#star-alpha-boost);
+  }
+}
+
+@media (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  .star-motif {
+    animation: none;
+  }
+}
+
 .rd-word {
   display: inline-block;
   white-space: nowrap;
