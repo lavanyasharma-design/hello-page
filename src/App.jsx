@@ -1,5 +1,5 @@
 import RippleText from './ripple/RippleText'
-import DitherReveal from './ripple/DitherReveal'
+import WaterImage from './ripple/WaterImage'
 
 function App() {
   return (
@@ -20,9 +20,8 @@ function App() {
       </svg>
       <main className="relative mx-auto flex w-full max-w-[720px] flex-col px-6 pt-[56px] pb-10 sm:px-8 sm:pt-[100px] sm:pb-14 lg:px-0 lg:pb-[50px]">
         <header className="flex items-center gap-4 sm:items-start sm:gap-6 lg:gap-[22px]">
-          <DitherReveal
+          <WaterImage
             src="/my%20photo.jpg"
-            ditheredSrc="/my%20photo%20-%20dithered.png"
             alt="Photo of Lavanya smiling indoors"
             className="h-[104px] w-[104px] flex-none rounded-[8px] sm:h-[140px] sm:w-[140px] sm:rounded-[9px] lg:h-[178px] lg:w-[181px]"
           />

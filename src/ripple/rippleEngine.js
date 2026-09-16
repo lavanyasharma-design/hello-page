@@ -15,7 +15,7 @@ function hasFinePointerHover() {
 let enabledCache = null
 
 // Desktop-only gate: fine pointer + hover capability, no reduced motion.
-// Used by effects that are still mouse-move driven (e.g. DitherReveal).
+// Used by effects that are still mouse-move driven.
 export function isRippleEnabled() {
   if (enabledCache !== null) return enabledCache
   if (typeof window === 'undefined' || !window.matchMedia) {
