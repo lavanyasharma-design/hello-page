@@ -30,7 +30,7 @@ function App() {
         </header>
 
         <section className="mt-[43px] flex flex-col gap-[34px] font-medium leading-[normal] text-[#551999] sm:mt-8 sm:gap-8 lg:mt-5 lg:gap-[50px]">
-          <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[24px]">
+          <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
             <p>
               I have nearly 2 years of experience. I’ve worked at BharatPe{' '}
               <span className="font-bold">(fintech)</span> and at Roadcast{' '}
@@ -42,7 +42,7 @@ function App() {
             </p>
             <p>It felt like the best re-ignition of my love for design &lt;3</p>
           </div>
-          <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[24px]">
+          <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
             <p>
               + I am a through &amp; through{' '}
               <span className="font-bold">systems thinker</span>, love laying
@@ -51,7 +51,7 @@ function App() {
             <p>+ UX that translates smoothly into UI is my forte.</p>
             <p>+ I understand how design blends with business.</p>
           </div>
-          <p className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[24px]">
+          <p className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
             Apart from this, I enjoy reading - books &amp; articles on
             substack, I resonate with music, appreciate art a lot, create
             gradients, patterns, motifs and love to have intellectual

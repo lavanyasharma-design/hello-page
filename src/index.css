@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Cormorant Upright", serif;
+  --font-display: "Cormorant Garamond", serif;
 }
 
 body {
