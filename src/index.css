@@ -57,3 +57,14 @@ body {
     animation: none;
   }
 }
+
+.rd-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.rd-letter {
+  display: inline-block;
+  transition: transform 350ms ease-out;
+  will-change: transform;
+}

@@ -1,3 +1,5 @@
+import RippleText from './ripple/RippleText'
+
 function App() {
   return (
     <div className="relative min-h-screen bg-[#fafeff] lg:flex lg:min-h-screen lg:items-center lg:justify-center">
@@ -14,7 +16,10 @@ function App() {
             className="h-[104px] w-[104px] flex-none rounded-[8px] object-cover object-bottom sm:h-[140px] sm:w-[140px] sm:rounded-[9px] lg:h-[178px] lg:w-[181px]"
           />
           <div className="flex flex-col pt-0 sm:pt-6 lg:pt-[57px]">
-            <h1 className="relative inline-block w-fit whitespace-nowrap text-[28px] font-medium leading-[1.21875] text-[#551999] sm:text-2xl lg:text-[32px] lg:tracking-[0.64px]">
+            <RippleText
+              as="h1"
+              className="relative inline-block w-fit whitespace-nowrap text-[28px] font-medium leading-[1.21875] text-[#551999] sm:text-2xl lg:text-[32px] lg:tracking-[0.64px]"
+            >
               Hi, I’m Lavanya
               <img
                 src="/star.svg"
@@ -22,16 +27,16 @@ function App() {
                 aria-hidden="true"
                 className="star-motif absolute -top-[0.41875em] left-[calc(100%-0.44286em)] w-[1.8em] select-none sm:left-[calc(100%-0.84375em)] sm:w-[3.25em]"
               />
-            </h1>
-            <p className="text-[18px] font-medium leading-[1.2] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
+            </RippleText>
+            <RippleText className="text-[18px] font-medium leading-[1.2] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
               a product designer
-            </p>
+            </RippleText>
           </div>
         </header>
 
         <section className="mt-[43px] flex flex-col gap-[34px] font-medium leading-[normal] text-[#551999] sm:mt-8 sm:gap-8 lg:mt-5 lg:gap-[50px]">
           <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
-            <p>
+            <RippleText>
               I have nearly 2 years of experience. I’ve worked at BharatPe{' '}
               <span className="font-bold">(fintech)</span> and at Roadcast{' '}
               <span className="font-bold">(SaaS, logistics)</span> in Gurugram,
@@ -39,24 +44,24 @@ function App() {
               design - packaging design, AI feedback intelligence platform,
               identity resolution to even making invites for my sister’s
               wedding :p{' '}
-            </p>
-            <p>It felt like the best re-ignition of my love for design &lt;3</p>
+            </RippleText>
+            <RippleText>It felt like the best re-ignition of my love for design &lt;3</RippleText>
           </div>
           <div className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
-            <p>
+            <RippleText>
               + I am a through &amp; through{' '}
               <span className="font-bold">systems thinker</span>, love laying
               out all pieces before hitting that first domino in motion.
-            </p>
-            <p>+ UX that translates smoothly into UI is my forte.</p>
-            <p>+ I understand how design blends with business.</p>
+            </RippleText>
+            <RippleText>+ UX that translates smoothly into UI is my forte.</RippleText>
+            <RippleText>+ I understand how design blends with business.</RippleText>
           </div>
-          <p className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
+          <RippleText className="text-[16px] leading-[1.4] sm:text-lg sm:leading-[normal] lg:text-[22px]">
             Apart from this, I enjoy reading - books &amp; articles on
             substack, I resonate with music, appreciate art a lot, create
             gradients, patterns, motifs and love to have intellectual
             conversations.
-          </p>
+          </RippleText>
         </section>
 
         <a
@@ -65,19 +70,21 @@ function App() {
           rel="noopener noreferrer"
           className="swoosh-link group relative mt-8 mb-10 inline-block w-fit text-[18px] font-medium leading-[normal] text-[#551999] sm:mb-12 sm:text-xl lg:mb-[70px] lg:text-[24px]"
         >
-          Say Hi{' '}
-          <span className="relative inline-block">
-            on X
-            <img
-              src="/swoosh.svg"
-              alt=""
-              aria-hidden="true"
-              className="swoosh-img pointer-events-none absolute left-0 top-[calc(100%-0.125em)] w-[calc(100%+6px)] select-none opacity-[0.46] transition-all duration-200"
-            />
-          </span>{'!'}
+          <RippleText as="span">
+            Say Hi{' '}
+            <span className="relative inline-block">
+              on X
+              <img
+                src="/swoosh.svg"
+                alt=""
+                aria-hidden="true"
+                className="swoosh-img pointer-events-none absolute left-0 top-[calc(100%-0.125em)] w-[calc(100%+6px)] select-none opacity-[0.46] transition-all duration-200"
+              />
+            </span>{'!'}
+          </RippleText>
         </a>
 
-        <p className="text-[16px] font-medium leading-[normal] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
+        <RippleText className="text-[16px] font-medium leading-[normal] text-[#e821ba] sm:text-base lg:text-[20px] lg:tracking-[0.4px]">
           [I kept hitting walls or running out of creative fuel while making
           my portfolio, honestly to the point where in quest to look for the
           reason, I created this page -{' '}
@@ -85,7 +92,7 @@ function App() {
             just for fun.
           </span>
           ]
-        </p>
+        </RippleText>
       </main>
     </div>
   )
