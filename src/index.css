@@ -36,6 +36,57 @@ body {
   }
 }
 
+/* The star renders much smaller on mobile, so the desktop-scale rotation is
+   barely perceptible there — give touch devices a bigger swing. Sampled at
+   fine steps and played with linear timing so it reads as one continuous
+   sway instead of easing to a stop at each keyframe. */
+@media (pointer: coarse) {
+  .star-motif {
+    animation-name: star-float-mobile;
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes star-float-mobile {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  8.33% {
+    transform: rotate(-4deg) scale(1.03);
+  }
+  16.67% {
+    transform: rotate(-6.93deg) scale(1.052);
+  }
+  25% {
+    transform: rotate(-8deg) scale(1.06);
+  }
+  33.33% {
+    transform: rotate(-6.93deg) scale(1.052);
+  }
+  41.67% {
+    transform: rotate(-4deg) scale(1.03);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  58.33% {
+    transform: rotate(4deg) scale(0.97);
+  }
+  66.67% {
+    transform: rotate(6.93deg) scale(0.948);
+  }
+  75% {
+    transform: rotate(8deg) scale(0.94);
+  }
+  83.33% {
+    transform: rotate(6.93deg) scale(0.948);
+  }
+  91.67% {
+    transform: rotate(4deg) scale(0.97);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .star-motif {
     animation: none;
@@ -50,5 +101,4 @@ body {
 .rd-letter {
   display: inline-block;
   transition: transform 350ms ease-out;
-  will-change: transform;
 }

@@ -26,19 +26,9 @@ export function isRippleEnabled() {
   return enabledCache
 }
 
-let splittingCache = null
-
-// Device-agnostic gate: only reduced motion disables it. Drives whether
-// RippleText splits into letters (both desktop hover-ripple and touch drag-ripple).
-export function isSplittingEnabled() {
-  if (splittingCache !== null) return splittingCache
-  if (typeof window === 'undefined' || !window.matchMedia) {
-    splittingCache = false
-    return splittingCache
-  }
-  splittingCache = !prefersReducedMotion()
-  return splittingCache
-}
+// Splitting is only needed to drive the desktop hover-ripple, so it shares
+// the same gate as isRippleEnabled().
+export const isSplittingEnabled = isRippleEnabled
 
 const letters = new Set()
 let grid = new Map()
@@ -74,8 +64,7 @@ function scheduleRebuild() {
 
 // Scroll shifts every letter by the same delta, so re-derive cached positions
 // with plain arithmetic instead of forcing a getBoundingClientRect() layout
-// read per letter on every scroll frame (that read-during-scroll is what was
-// stalling touch scrolling on mobile).
+// read per letter on every scroll frame.
 let lastScrollX = 0
 let lastScrollY = 0
 let scrollShiftScheduled = false
@@ -113,6 +102,7 @@ function scheduleScrollShift() {
 
 function resetLetter(letter) {
   letter.el.style.transform = ''
+  letter.el.style.willChange = ''
   active.delete(letter)
 }
 
@@ -134,6 +124,7 @@ function tick() {
           const strength = (1 - dist / RADIUS) * MAX_PUSH
           const tx = (dx / dist) * strength
           const ty = (dy / dist) * strength
+          letter.el.style.willChange = 'transform'
           letter.el.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0)`
           active.add(letter)
           touched.add(letter)
@@ -163,21 +154,6 @@ function onMouseLeave() {
   for (const letter of Array.from(active)) resetLetter(letter)
 }
 
-// Touch/pen: pointerdown seeds the ripple at the initial contact point (so a
-// plain tap still produces a pulse), pointermove keeps it following the
-// finger while dragging — same tick()/radius/strength as the desktop path.
-function onTouchPointerActive(e) {
-  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return
-  mouseX = e.clientX
-  mouseY = e.clientY
-  requestTick()
-}
-
-function onTouchPointerEnd(e) {
-  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return
-  onMouseLeave()
-}
-
 function onResize() {
   scheduleRebuild()
 }
@@ -186,21 +162,17 @@ function onScroll() {
   scheduleScrollShift()
 }
 
+// Splitting (and therefore this whole engine) is desktop-only now, so no
+// touch/pointer listeners are needed here.
 function ensureStarted() {
   if (started) return
   started = true
   lastScrollX = window.scrollX
   lastScrollY = window.scrollY
-  if (hasFinePointerHover()) {
-    window.addEventListener('mousemove', onMouseMove, { passive: true })
-    window.addEventListener('mouseleave', onMouseLeave, { passive: true })
-  }
+  window.addEventListener('mousemove', onMouseMove, { passive: true })
+  window.addEventListener('mouseleave', onMouseLeave, { passive: true })
   window.addEventListener('resize', onResize, { passive: true })
   window.addEventListener('scroll', onScroll, { passive: true })
-  window.addEventListener('pointerdown', onTouchPointerActive, { passive: true })
-  window.addEventListener('pointermove', onTouchPointerActive, { passive: true })
-  window.addEventListener('pointerup', onTouchPointerEnd, { passive: true })
-  window.addEventListener('pointercancel', onTouchPointerEnd, { passive: true })
 }
 
 if (typeof document !== 'undefined' && document.fonts) {
